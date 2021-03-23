@@ -2,177 +2,265 @@
 sort: 1
 ---
 
-# Markdown Elements
+# 主控学习
 
-Text can be **bold**, _italic_, or ~~strikethrough~~. [Links](https://github.com) should be blue with no underlines (unless hovered over).
+## 常用链接
 
-There should be whitespace between paragraphs. There should be whitespace between paragraphs. There should be whitespace between paragraphs. There should be whitespace between paragraphs.
+[利用LaTeX插入公式](https://blog.csdn.net/happyday_d/article/details/83715440)
 
-There should be whitespace between paragraphs. There should be whitespace between paragraphs. There should be whitespace between paragraphs. There should be whitespace between paragraphs.
+## 预备知识
 
-> There should be no margin above this first sentence.
->
-> Blockquotes should be a lighter gray with a gray border along the left side.
->
-> There should be no margin below this final sentence.
+### 速度解算
 
-# Header 1
+### 路径规划
 
-This is a normal paragraph following a header. Bacon ipsum dolor sit amet t-bone doner shank drumstick, pork belly porchetta chuck sausage brisket ham hock rump pig. Chuck kielbasa leberkas, pork bresaola ham hock filet mignon cow shoulder short ribs biltong.
+#### 预备知识
 
-## Header 2
+1. 
 
-> This is a blockquote following a header. Bacon ipsum dolor sit amet t-bone doner shank drumstick, pork belly porchetta chuck sausage brisket ham hock rump pig. Chuck kielbasa leberkas, pork bresaola ham hock filet mignon cow shoulder short ribs biltong.
+#### 直线跑点
 
-### Header 3
+1. 考虑路径中肯定会存在垂直x轴直线这样特殊的线，目前只能用$Ax+By+C=0$ 来表示。已知两个点的坐标，此时有三个未知量，显然有一个是多余的。这个多余的量可以简化为1或-1以简化计算量
 
-```
-This is a code block following a header.
-```
+2. 当两点成一普通直线时，将B简化为-1，则$y=Ax+C$就是普通斜截式，有
+   $$
+   \begin{equation}
+   \left\{
+   \begin{array}{l}
+   		A=\frac{\Delta y}{\Delta x}\\
+   		B=-1\\
+   \end{array}
+   \right.
+   \end{equation}
+   $$
 
-#### Header 4
+3. 当两点连线几乎垂直于$x$轴时，此时斜截式$k$几乎为无穷大，这也是不能用普通斜截式的原因
 
-- This is an unordered list following a header.
-- This is an unordered list following a header.
-- This is an unordered list following a header.
+   $$
+   \begin{equation}
+   \left\{
+   \begin{array}{l}
+   		A=1\\
+   		B=-\frac{\Delta x}{\Delta y}\\
+   \end{array}
+   \right.
+   \end{equation}
+   $$
 
-##### Header 5
+4. 当$Ax+By+C=0$ 已经知道$A,B$后，$C$很容易就能求出
 
-1. This is an ordered list following a header.
-2. This is an ordered list following a header.
-3. This is an ordered list following a header.
+   $$
+   C=-Ax_0-By_0
+   $$
 
-###### Header 6
+#### 直线偏差计算
 
-| What    | Follows  |
-| ------- | -------- |
-| A table | A header |
-| A table | A header |
-| A table | A header |
+1. <img src="https://i.loli.net/2021/03/20/TpCNzAQsYjJ6Zhq.jpg" alt="img" style="zoom:80%;" />
 
----
+   已知直线方程$Ax+By+c=0$则当前点到直线距离$\Delta=\frac{\vert Am+Bn+C\vert }{\sqrt(A^2+B^2)}$，则点M到点P横坐标偏差$\Delta x=\Delta *sin\theta $，$\Delta y=\Delta *cos\theta $
 
-There's a horizontal rule above and below this.
+   其中，$sin\theta=\frac{-A}{\sqrt(A^2+B^2)}$，$cos\theta=\frac{B}{\sqrt(A^2+B^2)}$
 
----
+   则有$\Delta x=\frac{-A*\vert Am+Bn+C\vert }{A^2+B^2}$， $\Delta y=\frac {B*\vert Am+Bn+C\vert }{A^2+B^2}$
 
-Here is an unordered list:
+   显然又出现一个问题，$A^2+B^2$此处作为分母，如果很小的话会使值变得格外大
 
-- Salt-n-Pepa
-- Bel Biv DeVoe
-- Kid 'N Play
+#### 贝塞尔曲线
 
-And an ordered list:
+#### 旋转
 
-1. Michael Jackson
-2. Michael Bolton
-3. Michael Bublé
+### U-cos
 
-And an unordered task list:
+#### 信号量集
 
-- [x] Create a sample markdown document
-- [x] Add task lists to it
-- [ ] Take a vacation
+在程序中定义全局变量来作为信号量，并根据改信号量的访问状态来访问共享资源，以解决冲突问题。即任务A不会在任务B访问共享资源s期间来访问s 。这样就避免了多个任务使用同一个共享资源时所出现的冲突现象。
 
-And a "mixed" task list:
+使用举例：
 
-- [ ] Steal underpants
-- ?
-- [ ] Profit!
-
-And a nested list:
-
-- Jackson 5
-  - Michael
-  - Tito
-  - Jackie
-  - Marlon
-  - Jermaine
-- TMNT
-  - Leonardo
-  - Michelangelo
-  - Donatello
-  - Raphael
-
-Definition lists can be used with HTML syntax. Definition terms are bold and italic.
-
-<dl>
-    <dt>Name</dt>
-    <dd>Godzilla</dd>
-    <dt>Born</dt>
-    <dd>1952</dd>
-    <dt>Birthplace</dt>
-    <dd>Japan</dd>
-    <dt>Color</dt>
-    <dd>Green</dd>
-</dl>
-
----
-
-Tables should have bold headings and alternating shaded rows.
-
-| Artist          | Album          | Year |
-| --------------- | -------------- | ---- |
-| Michael Jackson | Thriller       | 1982 |
-| Prince          | Purple Rain    | 1984 |
-| Beastie Boys    | License to Ill | 1986 |
-
-If a table is too wide, it should condense down and/or scroll horizontally.
-
-<!-- prettier-ignore-start -->
-
-| Artist            | Album           | Year | Label       | Awards   | Songs     |
-|-------------------|-----------------|------|-------------|----------|-----------|
-| Michael Jackson   | Thriller        | 1982 | Epic Records | Grammy Award for Album of the Year, American Music Award for Favorite Pop/Rock Album, American Music Award for Favorite Soul/R&B Album, Brit Award for Best Selling Album, Grammy Award for Best Engineered Album, Non-Classical | Wanna Be Startin' Somethin', Baby Be Mine, The Girl Is Mine, Thriller, Beat It, Billie Jean, Human Nature, P.Y.T. (Pretty Young Thing), The Lady in My Life |
-| Prince            | Purple Rain     | 1984 | Warner Brothers Records | Grammy Award for Best Score Soundtrack for Visual Media, American Music Award for Favorite Pop/Rock Album, American Music Award for Favorite Soul/R&B Album, Brit Award for Best Soundtrack/Cast Recording, Grammy Award for Best Rock Performance by a Duo or Group with Vocal | Let's Go Crazy, Take Me With U, The Beautiful Ones, Computer Blue, Darling Nikki, When Doves Cry, I Would Die 4 U, Baby I'm a Star, Purple Rain |
-| Beastie Boys      | License to Ill  | 1986 | Mercury Records | noawardsbutthistablecelliswide | Rhymin & Stealin, The New Style, She's Crafty, Posse in Effect, Slow Ride, Girls, (You Gotta) Fight for Your Right, No Sleep Till Brooklyn, Paul Revere, Hold It Now, Hit It, Brass Monkey, Slow and Low, Time to Get Ill |
-
-<!-- prettier-ignore-end -->
-
----
-
-Code snippets like `var foo = "bar";` can be shown inline.
-
-Also, `this should vertically align` ~~`with this`~~ ~~and this~~.
-
-Code can also be shown in a block element.
-
-```
-var foo = "bar";
+```c
+/* 错误占位 */
+#define CAN1_QUEUE_FULL 0x0001
+#define CAN2_QUEUE_FULL 0x0002
+#define CAN1_NODE_LOSE 0x0004
+#define CAN2_NODE_LOSE 0x0008
+#define OFF_TRACK 0x0010
+#define MOTOR_ERR 0x0020
+#define UART4_LOSE 0x0040
+#define UART5_LOSE 0x0080
 ```
 
-Code can also use syntax highlighting.
+其实就是1<<1，1<<2，···，后面就可以用或操作直接将对应位置1
 
-```javascript
-var foo = "bar";
+```c
+FlagPara.Error_Flag\vert=CAN2_QUEUE_FULL;
 ```
 
+### 串口屏
+
+#### 串口控制
+
+对串口屏按键操作其实是发送具有指定包头包尾的数据，可以在$usart.c$文件接收中断进行判断。
+
+| BUF[5] | BUF[4] | BUF[3] | BUF[2] |  BUF[1]  |  BUF[0]  |
+| :----: | :----: | :----: | :----: | :------: | :------: |
+|        |        |        |        | 键盘按键 | 矩阵键盘 |
+| 控件ID |        | 页面ID |        |          | 屏幕触控 |
+
+##### 注意：
+
+使用switch-case语句时注意别漏掉break
+
+#### 板子发送
+
+```c
+/* 包头 */
+USART.TxBuffer_UASRT2[i++]=0xee;
+USART.TxBuffer_UASRT2[i++]=0xb1;
+USART.TxBuffer_UASRT2[i++]=0x12;
+USART.TxBuffer_UASRT2[i++]=0;
+USART.TxBuffer_UASRT2[i++]=0;//页面ID
+USART.TxBuffer_UASRT2[i++]=0;
+USART.TxBuffer_UASRT2[i++]=1;//按键ID
+USART.TxBuffer_UASRT2[i++]=0x00;
+
+/*data存储待发送的数据*/
+sprintf(data,"%s","具体内容");
+USART.TxBuffer_UASRT2[i++]=strlen(data);
+strcpy((char*)(&USART.TxBuffer_UASRT2[i]),str_Err);
+	i+=strlen(str_Err);
+
+/*包尾*/
+USART.TxBuffer_UASRT2[i++]=0xff;
+USART.TxBuffer_UASRT2[i++]=0xfc;
+USART.TxBuffer_UASRT2[i++]=0xff;
+USART.TxBuffer_UASRT2[i++]=0xff;
 ```
-Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
+
+##### 注意
+
+1. 使用动态变化的效果判断板子是不是连接上了。如果蓝牙正常连接，主屏幕上就会动态价值。同时在多任务那也可以根据特定灯的闪烁判断。——下完程序后板子与程序时间有点延时，可能是程序中加延时的原因。
+
+ ```c
+   if(order[0]<4) order[0]++;
+   else order[0]=1;
+   
+   switch(order[0])
+   {
+   case 1:
+   sprintf(str_Well,"%s","WELL");
+   break;
+   
+   case 2:
+   sprintf(str_Well,"%s","WELL - ");
+   break;
+   
+   case 3:
+   sprintf(str_Well,"%s","WELL -- ");
+   break;
+   
+   case 4:
+   sprintf(str_Well,"%s","WELL --- ");
+   break;
+   
+   default:
+   break;
+   }
+ ```
+
+
+### CAN队列
+
+
+
+## 程序学习 
+
+### **注意**
+
+#### CAN
+
+1. CAN2要在CAN1初始化后初始化
+2. CAN1主要与传感器通信，CAN2主要与底盘电机及翻越电机通信
+3. CAN总线占有率在30%以下会好些？之前T车底盘接近70%时会丢报文，机构60%就还好（第一次知道CAN分析仪还可以用来看这个）
+
+#### 数据类型
+
+1. CAN 发送时，从CanTxMsg结构体中可以看到，发送数据类型`uint8_t Data[8]`，但实际上返回数据位置角度等都有正负，如定位`tx_message.Data[2] = (uint8_t)((int16_t)(position->X * 10));`
+
+   ```c
+   typedef int16_t s16;
+   ```
+
+2. 注意u16和s16的区别，一个是unsigned无符号类型，一个是signed有符号类型
+
+#### PID   
+
+1. PID基本原理
+
+   ![PID](https://i.loli.net/2021/03/16/Ru57LrdGUbxl3Vm.png)
+
+   $$
+   u(t)=Kp[e(t)+\frac{1}{Ti}\int_{0}^{t}e(t)dt+Td\frac{de(t)}{dt}]
+   $$
+
+2. 位置式~增量式
+
+   |  类型  | 示意图 |   备注   |
+   | :----: | :----: | :------: |
+   | 位置式 |        | 小车控制 |
+   | 增量式 |        | 电机控制 |
+
+3. 抗积分饱和PID控制器
+
+   <img src="https://i.loli.net/2021/03/16/VLcS7oUAWiNsvGT.png" alt="image-20210316183711307" style="zoom: 50%;" />
+
+   所谓积分饱和就是指系统存在一个方向的偏差，PID控制器的输出由于积分作用的不断累加而扩大，从而导致控制器输出不断增大超出正常范围进入饱和区。当系统出现反响的偏差时，需要首先从饱和区退出，而不能对反向的偏差进行快速的响应。
+
+   为了解决积分饱和的问题，人们引入了抗积分饱和的PID算法。所谓抗积分饱和算法，其思路是在计算U(k)的时候，先判断上一时刻的控制量U(k-1)是否已经超出了限制范围。若U(k-1)>Umax，则只累加负偏差；若U(k-1)<Umin，则只累加正偏差。从而**避免控制量长时间停留在饱和区**
+
+4. 串级PID
+
+   ![image-20210316190047663](https://i.loli.net/2021/03/16/3UloFYc6gtqNPSB.png)
+
+   (1) 由于内环回路的存在，改变了原来的对象特性，使内环回路对象的等效时间常数变小，所以使系统的**过渡时间缩短**了，**控制作用更加及时**；
+   (2) 改善了对象特征，起到**超前控制**的作用，有效抑制内环回路干扰，这种超前控制作用最适合干扰落在内环回路内的情况，若干扰落在外环回路时，超前作用就不明显了；
+   (3) 提高了系统的工作频率，使振荡周期减小，调节时间缩短，系统的**快速性增强**；
+   (4) 当模型失配时，内环控制器可以很好的抑制干扰，而外环控制器则以良好的动态性能和鲁棒性能为设计目标；
+   (5) 由于串级控制系统的内环是一个随动控制系统，它的设定值随着外环控制器的输出而变化。外环控制器可以按照操作条件和负荷的变化情况，不断调整内环控制器的设定值，从而保证在操作条件和负荷发生变化的情况下，控制系统仍有较好的控制效果。
+
+### 疑问
+
+定时器初始化
+
+### 其他
+
+1. 多用集成好的程序？
+
+```c
+void Ask_Dt(u8 xy_flag, u8 waitflag, int num)
+    
+can1_sendqueue.head[can1_sendqueue.Rear].Id = 0X01314150 \vert xy_flag;//利用xy_flag修改发送ID就很棒
 ```
 
-```javascript
-var foo =
-  "The same thing is true for code with syntax highlighting. A single line of code should horizontally scroll if it is really long.";
+2.  总能遇到一些奇妙的方式
+
+```c
+   Calcu[FlagPara.Mode_Run]();
+   
+   void (*Calcu[7])(void)={Calculate_STANDBY,Calculate_PTP,Calculate_Line_Point,Calculate_Bezier,Calculate_Circle,Calculate_Wheel,Calculate_Turn};
 ```
 
-Inline code inside table cells should still be distinguishable.
+再分别定义这些函数就很棒 
 
-| Language   | Code               |
-| ---------- | ------------------ |
-| Javascript | `var foo = "bar";` |
-| Ruby       | `foo = "bar"`      |
-
----
-
-Small images should be shown at their actual size.
-
-![Octocat](https://github.githubassets.com/images/icons/emoji/octocat.png)
-
-Large images should always scale down and fit in the content container.
-
-![Branching](https://guides.github.com/activities/hello-world/branching.png)
-
+```c
+void Calculate_Line_Point(void)
 ```
-This is the final element on the page and there should be no margin below this.
-```
+
+3. Act_C是直接读取陀螺仪码盘数据获得的实际值，注意此时读到的角度为陀螺仪读取数据的累加量（比如读个原地三连转来着）
+4. 在写平时程序时注意分模块串口屏控制，上场比赛时再集成好就行。
+5. 
+
+## 迷惑现象
+
+1. 用code打开文件夹，内部全局搜索可以搜到未打开的文件；但用KEIL PROJICT打开工程，全局搜索就只能搜打开的文件。
+2. 曾经Keil的5.31版本运行激光雷达出现过问题；还有阿波罗板子不要用显示屏输出太多东西，曾经有过一直进不去读取，后来一注释掉就好啦
+
