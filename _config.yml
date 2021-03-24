@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 title: 重定位小分队
 description: 分享一些小知识与小快乐~
 
@@ -29,3 +30,6 @@ exclude:
   - package-lock.json
   - webpack.config.js
   - jekyll-rtd-theme.gemspec
+=======
+theme: jekyll-theme-slate
+>>>>>>> parent of 5e84f8d (3-22)
