@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # jekyll-rtd-theme
 
 ![CI](https://github.com/rundocs/jekyll-rtd-theme/workflows/CI/badge.svg?branch=develop)
@@ -98,3 +99,6 @@ plugins:
 ## The license
 
 The theme is available as open source under the terms of the MIT License
+=======
+# whu-robocon-relocation.github.io
+>>>>>>> parent of 8b31403 (Set theme jekyll-theme-slate)
